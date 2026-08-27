@@ -11,8 +11,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.9.16_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.9.16_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.9.17_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.9.17_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -20,7 +20,7 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.9.16_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.9.17_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
@@ -31,7 +31,9 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    ./run-agentic-router.sh
    ```
 
-6. Keep the terminal open and open the address shown there, normally <http://localhost:5000>.
+6. Keep the terminal open and open the address shown there. Agentic Router uses
+   port 5000 when available and automatically selects another local port when
+   5000 is occupied.
 
 The application stores configuration and optional local history in the `data` directory beside the executable. Keep that directory when upgrading if you want to preserve them.
 
