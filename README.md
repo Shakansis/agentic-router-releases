@@ -1,25 +1,37 @@
-# Agentic Router — portable Windows guide
+# Agentic Router — portable Windows and Linux x64 guide
 
-Agentic Router runs local AI conversations and supervised workspace changes through a selected **model + harness**. The portable Windows package includes the application and the .NET runtime; Ollama, local models, and optional harnesses are installed separately from the first-run screen or **Settings → Local resources**.
+Agentic Router runs local AI conversations and supervised workspace changes through a selected **model + harness**. The portable Windows and Linux x64 packages include the application and the .NET runtime; Ollama, local models, and optional harnesses are installed separately from the first-run screen or **Settings → Local resources**. Linux ARM64 and macOS are not supported release targets yet.
 
 > **Alpha software:** review generated changes before committing them. Agentic Router confines Execute actions to the trusted workspace, but models can still make incorrect changes.
 
 ## 1. Download and start
 
 1. Open the [latest Agentic Router release](https://github.com/Shakansis/agentic-router-releases/releases).
-2. Download the Windows ZIP and its matching `.sha256` file.
-3. Optional but recommended: verify the download in PowerShell:
+2. Download the archive for your OS and its matching `.sha256` file.
+3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.9.15_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.9.15_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.9.16_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.9.16_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
 
-4. Extract the ZIP to a writable folder. Do not run the application from inside the ZIP.
-5. Double-click `AgenticRouter.exe`.
-6. Keep the console window open and open the address shown there, normally <http://localhost:5000>.
+   Verify a Linux download with:
+
+   ```bash
+   sha256sum -c AgenticRouter-0.9.16_alpha-linux-x64.tar.gz.sha256
+   ```
+
+4. Extract the archive to a writable folder. Do not run the application from inside the archive.
+5. On Windows, double-click `AgenticRouter.exe`. On Linux x64, run:
+
+   ```bash
+   chmod +x AgenticRouter run-agentic-router.sh
+   ./run-agentic-router.sh
+   ```
+
+6. Keep the terminal open and open the address shown there, normally <http://localhost:5000>.
 
 The application stores configuration and optional local history in the `data` directory beside the executable. Keep that directory when upgrading if you want to preserve them.
 
@@ -32,6 +44,17 @@ The first-run screen shows what is available on the computer. A usable local set
 - a harness only when you want Execute mode. **Codex is recommended for Execute** because it is currently the most stable option, but it is not mandatory.
 
 Use the download or install action beside a missing resource. Agentic Router starts the official installer or harness installation and then checks whether the resource became available.
+
+On Linux, guided installation currently covers Ollama. Install optional harnesses
+from their official Linux instructions and place their executables on `PATH`;
+Agentic Router then verifies them through the normal discovery path.
+
+On Linux with AMD hardware, Ollama setup requires an explicit acceleration choice:
+
+- **Vulkan** uses the official base package and enables `OLLAMA_VULKAN=1`. It offers broader AMD/Intel coverage but Ollama currently documents it as experimental.
+- **ROCm** uses the official base plus ROCm supplemental package. It is intended for supported AMD GPUs and requires compatible ROCm v7 drivers.
+
+Agentic Router never installs GPU drivers or models silently. It reports the requested profile, package manifest, actually observed backend, and CPU fallback separately. A later profile change shows an exact plan, preserves models/data, requires confirmation, and removes only files proven exclusive to the previous supplemental package.
 
 ![First-run local setup](screenshots/01-first-run-setup.png)
 
@@ -127,13 +150,13 @@ For this example, opening `index.html` displays the generated campaign page:
 
 ![Generated Khitai campaign website](screenshots/10-generated-website.png)
 
-Use **View folder** beside **Commit** and **Push** to open the current workspace in Windows Explorer.
+Use **View folder** beside **Commit** and **Push** to open the current workspace in Windows Explorer or the Linux desktop file manager.
 
 ![Workspace opened in Windows Explorer](screenshots/11-view-folder.png)
 
 ## 8. Stop, update, or move the portable app
 
-- Stop Agentic Router with `Ctrl+C` in its console window or by closing that window.
+- Stop Agentic Router with `Ctrl+C` in its terminal or by closing that window.
 - Before replacing an alpha build, back up the adjacent `data` directory.
 - Extract a new version to a clean folder, then copy the previous `data` directory only if you want to retain its settings and optional history.
 - Do not copy `data` to another computer unless you intend to transfer its local configuration.
@@ -144,6 +167,8 @@ Use **View folder** beside **Commit** and **Push** to open the current workspace
 - **A harness is missing:** open **Settings → Local resources** and use its install action. A harness can be selected in Chat, but it is applied only when Execute runs.
 - **Images are not analyzed:** select a model showing the **Vision** capability before sending.
 - **Execute cannot change files:** confirm the correct trusted workspace is active and review the selected approval policy.
-- **The page does not open:** use the exact local address printed in the console and keep `AgenticRouter.exe` running.
+- **Linux cloud keys are unavailable:** install `libsecret-tools` and ensure the desktop user keyring is active.
+- **Linux folder picker is unavailable:** install `zenity` or `kdialog`, or enter the workspace path manually. `xdg-utils` is required for **View folder**.
+- **The page does not open:** use the exact local address printed in the terminal and keep Agentic Router running.
 
 Use of this alpha build is governed by the [Agentic Router Alpha Evaluation License](LICENSE.md).
