@@ -11,8 +11,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Optional but recommended: verify the download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.9.14_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.9.14_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.9.15_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.9.15_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -101,6 +101,21 @@ Execute is for supervised project work.
 Agentic Router records planned actions, applies the selected approval policy, verifies file effects, and reports the authoritative result.
 
 ![Execute created and verified index.html](screenshots/08-execute-result.png)
+
+### Supervise a larger local task
+
+Prefix an Execute objective with `/supervisor` to enable durable supervised execution.
+The same selected local model and harness work serially in focused supervisor and
+worker contexts. The supervisor checks current Host-observed files and validation
+facts, rejects incomplete work with a precise correction, and accepts completion only
+after the criteria are covered.
+
+When local history is enabled, closing or reloading the browser does not cancel the
+run. Resume the saved conversation to reattach and replay progress. After an
+application restart, the `manual` policy waits for an explicit Resume; `auto-safe`
+continues only when the route, workspace, committed actions, approvals, and recovery
+budget are unambiguous. Supervised runs accept local Ollama routes only and never use a
+cloud fallback.
 
 ## 7. Review and open the result
 
