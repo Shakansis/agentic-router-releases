@@ -11,8 +11,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.9.17_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.9.17_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.9.18_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.9.18_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -20,7 +20,7 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.9.17_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.9.18_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
@@ -110,6 +110,19 @@ The model analyzes the attached images and returns its proposal in the conversat
 
 ![Chat response based on the attached images](screenshots/07-chat-response.png)
 
+### Use current web evidence
+
+The globe beside the composer is automatic. It appears enabled when the effective
+model, provider, harness, or configured Host integration can search the web; there
+is no search toggle to manage. An enabled globe means the capability is available,
+not that every prompt performs a search—the selected model or native provider
+decides when current external evidence is needed.
+
+Provider-native and harness-native search remain available when supported. Local
+tool-capable models can also use the optional Ollama Web Search integration configured
+under **Settings > Providers**. Search results are treated as untrusted content and
+visible citations are restricted to absolute HTTPS links.
+
 ## 6. Create files with Execute
 
 Execute is for supervised project work.
@@ -124,6 +137,12 @@ Execute is for supervised project work.
    ```
 
 Agentic Router records planned actions, applies the selected approval policy, verifies file effects, and reports the authoritative result.
+
+Sensitive process commands still require an explicit decision. For eligible exact
+commands, **Always allow exact command** records only the resolved executable, exact
+arguments, and working directory for the active workspace. It does not grant general
+shell access. Review or revoke saved entries under **Settings > Execution and
+approvals > Persistent process permissions**.
 
 ![Execute created and verified index.html](screenshots/08-execute-result.png)
 
