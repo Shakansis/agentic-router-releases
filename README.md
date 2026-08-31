@@ -4,17 +4,26 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 
 > **Alpha software:** review generated changes before committing them. Agentic Router confines Execute actions to the trusted workspace, but models can still make incorrect changes.
 
-## What's new in 0.9.19_alpha
+## Current release
 
-- Auto routing now uses deterministic local intent rules, then preserves
-  benchmark-based harness selection for the chosen model.
-- Chat accepts valid structured tool calls that arrive with incidental provider
-  preamble, executes them through the Host boundary, and shows only the grounded
-  final answer.
-- Execute runs directly on the selected model + harness; the obsolete resident
-  FunctionGemma coordination path is no longer active.
-- Project/session navigation, docked Execute progress, context presentation, and
-  review flows have been refined for longer local work.
+| Version | Platform | Package | Checksum |
+| --- | --- | --- | --- |
+| `v0.10.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.10.0_alpha/AgenticRouter-0.10.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.10.0_alpha/AgenticRouter-0.10.0_alpha-win-x64.zip.sha256) |
+| `v0.10.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.10.0_alpha/AgenticRouter-0.10.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.10.0_alpha/AgenticRouter-0.10.0_alpha-linux-x64.tar.gz.sha256) |
+
+[View all versions and release notes](https://github.com/Shakansis/agentic-router-releases/releases).
+
+## What's new in 0.10.0_alpha
+
+- Adds optional, project-scoped AnythingLLM retrieval. Agentic Router injects
+  selected context before inference while retaining generation, routing,
+  execution, security, and persistence authority.
+- Adds provider health, protected connection configuration, workspace/library
+  selection, explicit enablement, and fail-open retrieval evidence.
+- Reworks project editing into one focused project view with structured cards,
+  Benchmark-style switches, direct new-chat actions, and copyable trace IDs.
+- Preserves provider and library selections while RAG is disabled; merely
+  configuring AnythingLLM never makes every request use it.
 
 ## 1. Download and start
 
@@ -23,8 +32,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.9.19_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.9.19_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.10.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.10.0_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -32,7 +41,7 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.9.19_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.10.0_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
@@ -86,6 +95,22 @@ Execute mode can read and change files only inside the active trusted workspace.
 4. Save and activate the workspace.
 
 Use a dedicated project folder. Existing files are allowed, but Git makes review and recovery much easier.
+
+### Add project knowledge with AnythingLLM
+
+AnythingLLM is optional and remains a retrieval-only knowledge service.
+
+1. Open the selected project's **Edit project** action.
+2. Under **Knowledge / RAG**, enter the AnythingLLM server address and developer
+   API key, then save the connection.
+3. Select one or more AnythingLLM workspaces and save the project knowledge.
+4. Enable Knowledge/RAG for that project.
+
+Agentic Router retrieves relevant chunks before an enabled turn and injects
+them into its managed context. Agentic Router still owns model and harness
+routing, generation, execution, security, and persistence. Turning Knowledge/RAG
+off preserves the saved connection and library selection. Document upload,
+indexing, embeddings, chunking, and vector storage remain in AnythingLLM.
 
 ## 4. Initialize Git
 
