@@ -4,6 +4,18 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 
 > **Alpha software:** review generated changes before committing them. Agentic Router confines Execute actions to the trusted workspace, but models can still make incorrect changes.
 
+## What's new in 0.9.19_alpha
+
+- Auto routing now uses deterministic local intent rules, then preserves
+  benchmark-based harness selection for the chosen model.
+- Chat accepts valid structured tool calls that arrive with incidental provider
+  preamble, executes them through the Host boundary, and shows only the grounded
+  final answer.
+- Execute runs directly on the selected model + harness; the obsolete resident
+  FunctionGemma coordination path is no longer active.
+- Project/session navigation, docked Execute progress, context presentation, and
+  review flows have been refined for longer local work.
+
 ## 1. Download and start
 
 1. Open the [latest Agentic Router release](https://github.com/Shakansis/agentic-router-releases/releases).
@@ -11,8 +23,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.9.18_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.9.18_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.9.19_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.9.19_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -20,7 +32,7 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.9.18_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.9.19_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
@@ -101,10 +113,10 @@ Chat answers questions without changing workspace files.
 Example:
 
 ```text
-With the images create a webpage about my RPG group.
+Use these references to create a polished project landing page.
 ```
 
-![Four campaign images attached in Chat](screenshots/06-chat-with-images.png)
+![Four reference images attached in Chat](screenshots/06-chat-with-images.png)
 
 The model analyzes the attached images and returns its proposal in the conversation.
 
@@ -127,13 +139,12 @@ visible citations are restricted to absolute HTTPS links.
 
 Execute is for supervised project work.
 
-1. Place any source assets that the result must reference inside the trusted workspace. In this example the four images are under `assets/`.
-2. Select **Execute**.
-3. Choose the model, harness, and approval policy. Codex is recommended; Native is also available when the selected model supports Agentic Router's structured execution protocol.
-4. Send the objective. For this example, use the same prompt:
+1. Select **Execute**.
+2. Choose the model, harness, and approval policy. Codex is recommended; Native is also available when the selected model supports Agentic Router's structured execution protocol.
+3. Send a bounded objective. For this example:
 
    ```text
-   With the images create a webpage about my RPG group.
+   Create index.html with a Hello World page.
    ```
 
 Agentic Router records planned actions, applies the selected approval policy, verifies file effects, and reports the authoritative result.
@@ -167,9 +178,9 @@ Open the **Git** card to inspect changed files and the generated diff before com
 
 ![Reviewing index.html in the Git panel](screenshots/09-review-files.png)
 
-For this example, opening `index.html` displays the generated campaign page:
+For this example, opening `index.html` displays the generated page:
 
-![Generated Khitai campaign website](screenshots/10-generated-website.png)
+![Generated Hello World page](screenshots/10-generated-website.png)
 
 Use **View folder** beside **Commit** and **Push** to open the current workspace in Windows Explorer or the Linux desktop file manager.
 
