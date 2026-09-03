@@ -8,22 +8,22 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 
 | Version | Platform | Package | Checksum |
 | --- | --- | --- | --- |
-| `v0.10.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.10.0_alpha/AgenticRouter-0.10.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.10.0_alpha/AgenticRouter-0.10.0_alpha-win-x64.zip.sha256) |
-| `v0.10.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.10.0_alpha/AgenticRouter-0.10.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.10.0_alpha/AgenticRouter-0.10.0_alpha-linux-x64.tar.gz.sha256) |
+| `v0.11.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.11.0_alpha/AgenticRouter-0.11.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.11.0_alpha/AgenticRouter-0.11.0_alpha-win-x64.zip.sha256) |
+| `v0.11.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.11.0_alpha/AgenticRouter-0.11.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.11.0_alpha/AgenticRouter-0.11.0_alpha-linux-x64.tar.gz.sha256) |
 
 [View all versions and release notes](https://github.com/Shakansis/agentic-router-releases/releases).
 
-## What's new in 0.10.0_alpha
+## What's new in 0.11.0_alpha
 
-- Adds optional, project-scoped AnythingLLM retrieval. Agentic Router injects
-  selected context before inference while retaining generation, routing,
-  execution, security, and persistence authority.
-- Adds provider health, protected connection configuration, workspace/library
-  selection, explicit enablement, and fail-open retrieval evidence.
-- Reworks project editing into one focused project view with structured cards,
-  Benchmark-style switches, direct new-chat actions, and copyable trace IDs.
-- Preserves provider and library selections while RAG is disabled; merely
-  configuring AnythingLLM never makes every request use it.
+- Adds an integrated Execute strategy selector to the Send button: Auto, Direct,
+  Supervisor, or explicit Autonomous for eligible local work.
+- Makes durable supervision visible and recoverable through a Host-owned queue,
+  current-artifact verification, bounded checkpoints, restart reconciliation,
+  and browser reattachment.
+- Adds Host-owned `low`, `medium`, or `high` reasoning effort for Plan, Work,
+  Verify, Complete, and Recovery phases, with reviewed per-harness mappings.
+- Strengthens Host effect evidence, exact tool handling, approval-wait timing,
+  stale-state revalidation, and bounded trace reconstruction.
 
 ## 1. Download and start
 
@@ -32,8 +32,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.10.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.10.0_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.11.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.11.0_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -41,7 +41,7 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.10.0_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.11.0_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
@@ -165,17 +165,34 @@ visible citations are restricted to absolute HTTPS links.
 Execute is for supervised project work.
 
 1. Select **Execute**.
-2. Choose the model, harness, and approval policy. Codex is recommended; Native is also available when the selected model supports Agentic Router's structured execution protocol.
-3. Send a bounded objective. For this example:
+2. Choose the model and harness. Codex is recommended; Native is also available when the selected model supports Agentic Router's structured execution protocol.
+3. Use the small right-hand segment of **Send** to choose the execution strategy:
+   **Auto (`A`)**, **Direct (`D`)**, **Supervisor (`S`)**, or
+   **Autonomous (`∞`)**. Then use the main Send segment or Enter normally.
+4. Choose the approval policy when using Auto, Direct, or Supervisor. Autonomous
+   deliberately disables this selector because it approves every action the user
+   could permit for that run; hard Host boundaries remain enforced.
+5. Send a bounded objective. For this example:
 
    ```text
    Create index.html with a Hello World page.
    ```
 
-Agentic Router records planned actions, applies the selected approval policy, verifies file effects, and reports the authoritative result.
+Agentic Router records planned actions, applies the effective approval policy, verifies file effects, and reports the authoritative result.
 
-Sensitive process commands still require an explicit decision. For eligible exact
-commands, **Always allow exact command** records only the resolved executable, exact
+![Execute strategies on the Send button](screenshots/03-execute-strategies.png)
+
+**Auto** is the default. It stays in Direct for bounded work and selects Supervisor
+when a structured objective or accepted plan exceeds the configured limit (five
+steps by default). **Direct** forces one execution context. **Supervisor** decomposes
+and verifies a durable serial queue. **Autonomous** uses that same supervised flow but
+does not stop for a discretionary approval decision. It cannot escape the trusted
+workspace, authorize a forbidden process, weaken validation, or bypass any other
+hard Host policy.
+
+When the effective policy requires approval, sensitive process commands wait for an
+explicit decision. For eligible exact commands, **Always allow exact command** records
+only the resolved executable, exact
 arguments, and working directory for the active workspace. It does not grant general
 shell access. Review or revoke saved entries under **Settings > Execution and
 approvals > Persistent process permissions**.
@@ -184,7 +201,8 @@ approvals > Persistent process permissions**.
 
 ### Supervise a larger local task
 
-Prefix an Execute objective with `/supervisor` to enable durable supervised execution.
+Select **Supervisor** on the Send button, or prefix an Execute objective with
+`/supervisor`, to enable durable supervised execution.
 The same selected local model and harness work serially in focused supervisor and
 worker contexts. The supervisor checks current Host-observed files and validation
 facts, rejects incomplete work with a precise correction, and accepts completion only
@@ -196,6 +214,23 @@ application restart, the `manual` policy waits for an explicit Resume; `auto-saf
 continues only when the route, workspace, committed actions, approvals, and recovery
 budget are unambiguous. Supervised runs accept local Ollama routes only and never use a
 cloud fallback.
+
+### Configure effort by phase
+
+Open **Settings > General > Effort by supervised phase** to choose `low`,
+`medium`, or `high` for Plan, Work, Verify, Complete, and Recovery. These values
+are reasoning-effort levels, not Benchmark scoring weights. They affect how much
+reasoning the selected model should spend in each supervised phase; they do not
+change the model/harness route, tools, approvals, workspace boundaries, validation,
+or recovery limits.
+
+The defaults are **Plan high**, **Work medium**, **Verify medium**, **Complete low**,
+and **Recovery high**. Planning and recovery receive more effort because mistakes
+there propagate or require diagnosis; repeated implementation and evidence-based
+verification stay balanced; completion only summarizes work the Host has already
+accepted. Native Ollama, Codex, OpenCode, and Qwen Code receive reviewed native or
+translated effort controls. Claude Code through Ollama uses visible prompt guidance
+because that compatibility route exposes no reviewed effort field.
 
 ## 7. Review and open the result
 
