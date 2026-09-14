@@ -8,22 +8,24 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 
 | Version | Platform | Package | Checksum |
 | --- | --- | --- | --- |
-| `v0.11.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.11.0_alpha/AgenticRouter-0.11.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.11.0_alpha/AgenticRouter-0.11.0_alpha-win-x64.zip.sha256) |
-| `v0.11.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.11.0_alpha/AgenticRouter-0.11.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.11.0_alpha/AgenticRouter-0.11.0_alpha-linux-x64.tar.gz.sha256) |
+| `v0.12.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.12.0_alpha/AgenticRouter-0.12.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.12.0_alpha/AgenticRouter-0.12.0_alpha-win-x64.zip.sha256) |
+| `v0.12.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.12.0_alpha/AgenticRouter-0.12.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.12.0_alpha/AgenticRouter-0.12.0_alpha-linux-x64.tar.gz.sha256) |
 
 [View all versions and release notes](https://github.com/Shakansis/agentic-router-releases/releases).
 
-## What's new in 0.11.0_alpha
+## What's new in 0.12.0_alpha
 
-- Adds an integrated Execute strategy selector to the Send button: Auto, Direct,
-  Supervisor, or explicit Autonomous for eligible local work.
-- Makes durable supervision visible and recoverable through a Host-owned queue,
-  current-artifact verification, bounded checkpoints, restart reconciliation,
-  and browser reattachment.
-- Adds Host-owned `low`, `medium`, or `high` reasoning effort for Plan, Work,
-  Verify, Complete, and Recovery phases, with reviewed per-harness mappings.
-- Strengthens Host effect evidence, exact tool handling, approval-wait timing,
-  stale-state revalidation, and bounded trace reconstruction.
+- Adds Agentic Router-owned local Ollama servers for explicit CUDA, ROCm, and
+  opt-in combined Vulkan selections, while leaving Auto and custom endpoints
+  user-managed and never silently falling back to another backend.
+- Combines NVIDIA, AMD, and other Windows adapters in runtime telemetry and
+  distinguishes configured affinity from observed Ollama runner placement.
+- Runs CRUD, Agent Behavior, and the new Real Life Problem suite through the
+  production Execute path, with independent artifact/browser validation,
+  structured Markdown reports, and 1–20 separate sequential repetitions.
+- Adds Host-mediated interactive questions during an Execute turn, bounded
+  persistent-session compaction, shared SSE presentation, and stronger
+  cross-harness supervision, approval, diagnostic, and effect evidence.
 
 ## 1. Download and start
 
@@ -32,8 +34,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.11.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.11.0_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.12.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.12.0_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -41,7 +43,7 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.11.0_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.12.0_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
@@ -82,6 +84,12 @@ Agentic Router never installs GPU drivers or models silently. It reports the req
 ![First-run local setup](screenshots/01-first-run-setup.png)
 
 The same controls remain available later under **Settings → Local resources**. Installed resources display a check mark; unavailable resources retain their install action.
+
+On Windows, **Auto** keeps the configured Ollama endpoint. Explicit CUDA or
+ROCm choices use isolated Agentic Router-owned local servers, and combined
+Vulkan is an opt-in heterogeneous profile. The runtime view keeps the saved
+preference separate from the backend and GPU actually observed; external
+Ollama tray or service processes are never stopped by managed-server cleanup.
 
 ![Installed Ollama, model, and harness resources](screenshots/02-local-resources-ready.png)
 
@@ -232,7 +240,22 @@ accepted. Native Ollama, Codex, OpenCode, and Qwen Code receive reviewed native 
 translated effort controls. Claude Code through Ollama uses visible prompt guidance
 because that compatibility route exposes no reviewed effort field.
 
-## 7. Review and open the result
+## 7. Compare models and harnesses in Benchmark Lab
+
+Open **Benchmark Lab** from the sidebar to compare selected Model × Harness
+pairs. CRUD and Agent Behavior preserve their versioned scenarios; Real Life
+Problem runs a missing-game task through the same production Execute path used
+by an ordinary request and independently checks preserved files, new assets,
+browser startup, console errors, and the Host terminal result.
+
+Set **Sequential runs** from 1 to 20 when repeated samples are needed. Each
+repetition waits for the previous run to finish and remains a separate immutable
+history result with its own run ID. Reports render structured Markdown while
+canonical prompts and technical evidence remain literal text.
+
+![Benchmark Lab suites, sequential runs, and results](screenshots/12-benchmark-lab.png)
+
+## 8. Review and open the result
 
 Open the **Git** card to inspect changed files and the generated diff before committing.
 
@@ -246,7 +269,7 @@ Use **View folder** beside **Commit** and **Push** to open the current workspace
 
 ![Workspace opened in Windows Explorer](screenshots/11-view-folder.png)
 
-## 8. Stop, update, or move the portable app
+## 9. Stop, update, or move the portable app
 
 - Stop Agentic Router with `Ctrl+C` in its terminal or by closing that window.
 - Before replacing an alpha build, back up the adjacent `data` directory.
