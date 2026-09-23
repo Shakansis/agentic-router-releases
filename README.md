@@ -10,26 +10,20 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 
 | Version | Platform | Package | Checksum |
 | --- | --- | --- | --- |
-| `v0.13.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.13.0_alpha/AgenticRouter-0.13.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.13.0_alpha/AgenticRouter-0.13.0_alpha-win-x64.zip.sha256) |
-| `v0.13.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.13.0_alpha/AgenticRouter-0.13.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.13.0_alpha/AgenticRouter-0.13.0_alpha-linux-x64.tar.gz.sha256) |
+| `v0.14.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.14.0_alpha/AgenticRouter-0.14.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.14.0_alpha/AgenticRouter-0.14.0_alpha-win-x64.zip.sha256) |
+| `v0.14.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.14.0_alpha/AgenticRouter-0.14.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.14.0_alpha/AgenticRouter-0.14.0_alpha-linux-x64.tar.gz.sha256) |
 
 [View all versions and release notes](https://github.com/Shakansis/agentic-router-releases/releases).
 
-## What's new in 0.13.0_alpha
+## What's new in 0.14.0_alpha
 
-- Reattaches an accepted Chat turn after browser refresh without resubmitting
-  it; long local conversations load in bounded pages with their full transcript
-  still available.
-- Adds bounded Execute recovery for supported context failures and missing Qwen
-  sessions, while durable Supervisor checkpoints require reconciled resume after
-  persistent storage failure.
-- Rebuilds live Benchmark Lab state after an event replay gap and retains
-  completed results when infrastructure or final-result storage fails. Exact
-  custom prompts can be run for separate manual quality review.
-- Gives explicit per-model GPU affinity precedence over legacy role preferences
-  and keeps managed backend/device servers independent across roles.
-- Reports unavailable local resources without blocking the interface; managed
-  Ollama startup retries readiness without silently switching backend or GPU.
+- Downloads public HTTPS assets into the trusted workspace after explicit
+  approval. Existing files offer Keep or Replace per destination; Autonomous
+  keeps them and reports their replacement URLs.
+- Keeps pending recovery decisions visible and grants new work allowance after
+  verified progress rather than stopping after a fixed action count.
+- Reconnects silent Chat streams and preserves queued prompts when admission
+  meets a previous turn during cleanup.
 
 ## 1. Download and start
 
@@ -38,8 +32,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.13.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.13.0_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.14.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.14.0_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -47,7 +41,7 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.13.0_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.14.0_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
