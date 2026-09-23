@@ -1,5 +1,7 @@
 # Agentic Router — portable Windows and Linux x64 guide
 
+<img src="brand/agentic-router-full.png" alt="Agentic Router" width="480">
+
 Agentic Router runs local AI conversations and supervised workspace changes through a selected **model + harness**. The portable Windows and Linux x64 packages include the application and the .NET runtime; Ollama, local models, and optional harnesses are installed separately from the first-run screen or **Settings → Local resources**. Linux ARM64 and macOS are not supported release targets yet.
 
 > **Alpha software:** review generated changes before committing them. Agentic Router confines Execute actions to the trusted workspace, but models can still make incorrect changes.
@@ -8,24 +10,26 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 
 | Version | Platform | Package | Checksum |
 | --- | --- | --- | --- |
-| `v0.12.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.12.0_alpha/AgenticRouter-0.12.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.12.0_alpha/AgenticRouter-0.12.0_alpha-win-x64.zip.sha256) |
-| `v0.12.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.12.0_alpha/AgenticRouter-0.12.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.12.0_alpha/AgenticRouter-0.12.0_alpha-linux-x64.tar.gz.sha256) |
+| `v0.13.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.13.0_alpha/AgenticRouter-0.13.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.13.0_alpha/AgenticRouter-0.13.0_alpha-win-x64.zip.sha256) |
+| `v0.13.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.13.0_alpha/AgenticRouter-0.13.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.13.0_alpha/AgenticRouter-0.13.0_alpha-linux-x64.tar.gz.sha256) |
 
 [View all versions and release notes](https://github.com/Shakansis/agentic-router-releases/releases).
 
-## What's new in 0.12.0_alpha
+## What's new in 0.13.0_alpha
 
-- Adds Agentic Router-owned local Ollama servers for explicit CUDA, ROCm, and
-  opt-in combined Vulkan selections, while leaving Auto and custom endpoints
-  user-managed and never silently falling back to another backend.
-- Combines NVIDIA, AMD, and other Windows adapters in runtime telemetry and
-  distinguishes configured affinity from observed Ollama runner placement.
-- Runs CRUD, Agent Behavior, and the new Real Life Problem suite through the
-  production Execute path, with independent artifact/browser validation,
-  structured Markdown reports, and 1–20 separate sequential repetitions.
-- Adds Host-mediated interactive questions during an Execute turn, bounded
-  persistent-session compaction, shared SSE presentation, and stronger
-  cross-harness supervision, approval, diagnostic, and effect evidence.
+- Reattaches an accepted Chat turn after browser refresh without resubmitting
+  it; long local conversations load in bounded pages with their full transcript
+  still available.
+- Adds bounded Execute recovery for supported context failures and missing Qwen
+  sessions, while durable Supervisor checkpoints require reconciled resume after
+  persistent storage failure.
+- Rebuilds live Benchmark Lab state after an event replay gap and retains
+  completed results when infrastructure or final-result storage fails. Exact
+  custom prompts can be run for separate manual quality review.
+- Gives explicit per-model GPU affinity precedence over legacy role preferences
+  and keeps managed backend/device servers independent across roles.
+- Reports unavailable local resources without blocking the interface; managed
+  Ollama startup retries readiness without silently switching backend or GPU.
 
 ## 1. Download and start
 
@@ -34,8 +38,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.12.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.12.0_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.13.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.13.0_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -43,7 +47,7 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.12.0_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.13.0_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
