@@ -10,22 +10,41 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 
 | Version | Platform | Package | Checksum |
 | --- | --- | --- | --- |
-| `v0.15.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.15.0_alpha/AgenticRouter-0.15.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.15.0_alpha/AgenticRouter-0.15.0_alpha-win-x64.zip.sha256) |
-| `v0.15.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.15.0_alpha/AgenticRouter-0.15.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.15.0_alpha/AgenticRouter-0.15.0_alpha-linux-x64.tar.gz.sha256) |
+| `v0.16.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.0_alpha/AgenticRouter-0.16.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.0_alpha/AgenticRouter-0.16.0_alpha-win-x64.zip.sha256) |
+| `v0.16.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.0_alpha/AgenticRouter-0.16.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.0_alpha/AgenticRouter-0.16.0_alpha-linux-x64.tar.gz.sha256) |
 
 [View all versions and release notes](https://github.com/Shakansis/agentic-router-releases/releases).
 
-## What's new in 0.15.0_alpha
+## What's new in 0.16.0_alpha
 
-- Steer supported running harnesses with explicit delivery evidence. Codex opts
-  into instant interruption; Qwen distinguishes queued input from same-turn delivery.
-- Tune draft tokens, batch size and KV cache per exact local model. KV overrides
-  inherit the global default and share settings across roles; compatible AR-owned
-  Ollama servers are reused without replacing another cache configuration.
-- Inspect inference progress, throughput and TTFT with their measurement source.
-  Completion and recovery remain based on Host-observed effects.
-- Updated harness protocol integration, native Codex patch validation, cleaner
-  activity reports and corrected resource-panel layering.
+- Keep a specialist fixed for the conversation, or let Automatic route each turn.
+- Use the Storytelling Editor with RPG storytelling: review or rewrite a selection,
+  compare changes before Apply, undo edits, and open/save Markdown in the trusted project.
+- Type `@` in the composer to find project files and insert relative-path badges.
+  File contents are not attached automatically.
+- Accept every Native tool call in a response. Execution remains sequential by
+  default; optional parallel reads retain individual Host validation and evidence.
+- Manage installed Ollama models from the library, including explicit installation,
+  verified removal, aliases, notes, favorites and last recorded use in AR.
+- Use the active role's requested context, capped by the local model's declared
+  capacity, and coordinate Direct model residency without stopping external models.
+- Rewind Chat immediately to the original prompt; Execute rollback also restores
+  captured file effects while preserving conflicting external changes.
+
+### Writing and project file references
+
+With RPG storytelling fixed, open the Storytelling Editor and review or rewrite a
+selected passage. Inspect the proposed changes before **Apply to selection**.
+Apply changes the draft; saving to the opened workspace file is a separate action.
+
+![Storytelling Editor comparison before Apply](screenshots/13-storytelling-editor.png)
+
+Type `@` in the composer to find a project file. Selecting a result inserts its
+relative path as a filename badge; the file's contents are not attached automatically.
+
+![Project file reference in the composer](screenshots/14-project-file-references.png)
+
+These captures use deterministic test content; they illustrate the interface.
 
 ## 1. Download and start
 
@@ -34,8 +53,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.15.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.15.0_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.16.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.16.0_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -43,7 +62,7 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.15.0_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.16.0_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
