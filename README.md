@@ -10,12 +10,29 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 
 | Version | Platform | Package | Checksum |
 | --- | --- | --- | --- |
-| `v0.16.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.0_alpha/AgenticRouter-0.16.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.0_alpha/AgenticRouter-0.16.0_alpha-win-x64.zip.sha256) |
-| `v0.16.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.0_alpha/AgenticRouter-0.16.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.0_alpha/AgenticRouter-0.16.0_alpha-linux-x64.tar.gz.sha256) |
+| `v0.16.1_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.1_alpha/AgenticRouter-0.16.1_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.1_alpha/AgenticRouter-0.16.1_alpha-win-x64.zip.sha256) |
+| `v0.16.1_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.1_alpha/AgenticRouter-0.16.1_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.16.1_alpha/AgenticRouter-0.16.1_alpha-linux-x64.tar.gz.sha256) |
 
 [View all versions and release notes](https://github.com/Shakansis/agentic-router-releases/releases).
 
-## What's new in 0.16.0_alpha
+## Known issues
+
+- **Qwen Code 0.25.0: incomplete inference metrics.** When a native request is
+  cancelled before reporting usage, timing/token metrics may remain unavailable
+  even if the answer finishes. Observed once; not reproduced in two subsequent
+  checks. Frequency in normal use is unknown.
+
+## What's new in 0.16.1_alpha
+
+- Fix Codex steering with Ollama after interrupted reasoning: the latest user
+  instruction retains its place after the interrupted assistant message.
+
+The final Windows package passed all 13 real-model/history acceptance cases with
+the installed `qwen3.8:27b-q4_K_M`, covering all five harnesses, steering, Native
+multi-tool execution and Storytelling Apply/Undo/export. Linux startup and API
+were checked in Ubuntu/WSL. See the release notes for the validation boundary.
+
+Included from 0.16:
 
 - Keep a specialist fixed for the conversation, or let Automatic route each turn.
 - Use the Storytelling Editor with RPG storytelling: review or rewrite a selection,
@@ -53,8 +70,8 @@ These captures use deterministic test content; they illustrate the interface.
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.16.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.16.0_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.16.1_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.16.1_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -62,7 +79,7 @@ These captures use deterministic test content; they illustrate the interface.
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.16.0_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.16.1_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
