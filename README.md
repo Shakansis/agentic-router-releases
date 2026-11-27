@@ -10,8 +10,8 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
 
 | Version | Platform | Package | Checksum |
 | --- | --- | --- | --- |
-| `v0.17.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.17.0_alpha/AgenticRouter-0.17.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.17.0_alpha/AgenticRouter-0.17.0_alpha-win-x64.zip.sha256) |
-| `v0.17.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.17.0_alpha/AgenticRouter-0.17.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.17.0_alpha/AgenticRouter-0.17.0_alpha-linux-x64.tar.gz.sha256) |
+| `v0.19.0_alpha` | Windows x64 | [Download ZIP](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.19.0_alpha/AgenticRouter-0.19.0_alpha-win-x64.zip) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.19.0_alpha/AgenticRouter-0.19.0_alpha-win-x64.zip.sha256) |
+| `v0.19.0_alpha` | Linux x64 | [Download tar.gz](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.19.0_alpha/AgenticRouter-0.19.0_alpha-linux-x64.tar.gz) | [SHA-256](https://github.com/Shakansis/agentic-router-releases/releases/download/v0.19.0_alpha/AgenticRouter-0.19.0_alpha-linux-x64.tar.gz.sha256) |
 
 [View all versions and release notes](https://github.com/Shakansis/agentic-router-releases/releases).
 
@@ -22,21 +22,24 @@ Agentic Router runs local AI conversations and supervised workspace changes thro
   even if the answer finishes. Observed once; not reproduced in two subsequent
   checks. Frequency in normal use is unknown.
 
-## What's new in 0.17.0_alpha
+## What's new in 0.19.0_alpha
 
-- Use Chat and the Storytelling Editor with one shared composer. The tool pane
-  starts closed; opening the editor reveals an adjustable split and collapsible
-  controls. Proposed changes still require review and Apply.
-- Configure OpenAI Responses and hosted web search from Settings > Providers,
-  with visible recovery progress and protected credentials.
-- Remove obsolete local-model configuration after verified model removal and
-  distinguish throughput estimates from measured generation.
+- Search with the Agent Browser panel closed. The specialist can read a source in the background, verify page text and show you the page. Hide keeps the page available.
+- Configure Host web search with a managed SearXNG instance or an existing loopback instance, and select its search engines.
+- Send up to three compatible Direct turns from different clients. AR can reuse the resident model and queues conflicting model switches in arrival order. Ollama controls inference parallelism.
+- The project conversation list refreshes when another client saves a new conversation.
 
-Shared-composer revision, explicit Apply and Undo also passed browser/API
-acceptance with an installed local Qwen model. All 32 installed-harness checks
-passed against simulated providers. Paid-provider acceptance from previous
-versions remains historical evidence. Agent Browser is planned for the following
-increment.
+Also included for users upgrading from 0.17
+
+- The composer sends the project ID with each request. API clients must send
+  `workspaceId` when starting Chat or Execute, preparing supervision, proposing
+  editor changes or deciding whether to initialize Git for a snapshot. Use
+  `GET /api/workspaces` to find the registered ID. A missing ID rejects the request.
+- Open Agent Browser from the composer to view and interact with a page while
+  keeping the conversation and its activity visible.
+- Use Codex with OpenAI and configure supported cloud and local supervision routes.
+- Set the Chat conclusion and timeout intervals in Runtime and memory. Waiting
+  for user input or approval pauses the timer.
 
 Included from 0.16:
 
@@ -76,8 +79,8 @@ These captures use deterministic test content; they illustrate the interface.
 3. Verify a Windows download in PowerShell:
 
    ```powershell
-   (Get-FileHash .\AgenticRouter-0.17.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
-   Get-Content .\AgenticRouter-0.17.0_alpha-win-x64.zip.sha256
+   (Get-FileHash .\AgenticRouter-0.19.0_alpha-win-x64.zip -Algorithm SHA256).Hash.ToLowerInvariant()
+   Get-Content .\AgenticRouter-0.19.0_alpha-win-x64.zip.sha256
    ```
 
    The two hashes must match.
@@ -85,7 +88,7 @@ These captures use deterministic test content; they illustrate the interface.
    Verify a Linux download with:
 
    ```bash
-   sha256sum -c AgenticRouter-0.17.0_alpha-linux-x64.tar.gz.sha256
+   sha256sum -c AgenticRouter-0.19.0_alpha-linux-x64.tar.gz.sha256
    ```
 
 4. Extract the archive to a writable folder. Do not run the application from inside the archive.
@@ -112,9 +115,16 @@ The first-run screen shows what is available on the computer. A usable local set
 
 Use the download or install action beside a missing resource. Agentic Router starts the official installer or harness installation and then checks whether the resource became available.
 
-On Linux, guided installation currently covers Ollama. Install optional harnesses
+On Linux, guided model-runtime installation covers Ollama. Install optional harnesses
 from their official Linux instructions and place their executables on `PATH`;
 Agentic Router then verifies them through the normal discovery path.
+
+For local web search, open **Settings → Providers → Busca na web**. Run
+**Instalar SearXNG neste computador** once, check the search engines and click **Save changes** in the settings footer. **Testar busca com LLM** tries the current selection before saving. AR starts
+and stops the local search process with the application. Windows uses the
+Ubuntu distribution in WSL. Linux runs the same Python runtime directly.
+The one-time setup needs Git, flock, Python with venv (tested on 3.12),
+and access to GitHub and PyPI. It installs under the current user's home.
 
 On Linux with AMD hardware, Ollama setup requires an explicit acceleration choice:
 
